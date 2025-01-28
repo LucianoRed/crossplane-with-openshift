@@ -22,10 +22,6 @@ Due to the nature of OpenShift's enterprise strength security model when we inst
 # in OpenShift this creates the Service Account 'crossplane' during the chart install
 helm install crossplane --namespace --create-namespace crossplane-system crossplane-stable/crossplane --set securityContextCrossplane.runAsUser=null --set securityContextCrossplane.runAsGroup=null --set securityContextRBACManager.runAsUser=null --set securityContextRBACManager.runAsGroup=null --set alpha.oam.enabled=true
 
-helm install crossplane --namespace crossplane-system crossplane-stable/crossplane --version 1.2.1 --set securityContextCrossplane.runAsUser=null --set securityContextCrossplane.runAsGroup=null --set securityContextRBACManager.runAsUser=null --set securityContextRBACManager.runAsGroup=null --set alpha.oam.enabled=true
-
-
-
 # install the Crossplane CLI
 curl -sL https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh | sh
 sudo mv kubectl-crossplane /usr/local/bin
