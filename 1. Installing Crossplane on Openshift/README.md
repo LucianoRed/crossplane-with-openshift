@@ -20,7 +20,7 @@ helm repo update
 Due to the nature of OpenShift's enterprise strength security model when we install Crossplane we need to set various security contexts. By setting to `null` we pass through the user credentials authority of the logged in OpenShift user through to the Crossplane components.
 ```
 # in OpenShift this creates the Service Account 'crossplane' during the chart install
-helm install crossplane --namespace crossplane-system crossplane-stable/crossplane --set securityContextCrossplane.runAsUser=null --set securityContextCrossplane.runAsGroup=null --set securityContextRBACManager.runAsUser=null --set securityContextRBACManager.runAsGroup=null --version 1.2.0 --set alpha.oam.enabled=true
+helm install crossplane --namespace --create-namespace crossplane-system crossplane-stable/crossplane --set securityContextCrossplane.runAsUser=null --set securityContextCrossplane.runAsGroup=null --set securityContextRBACManager.runAsUser=null --set securityContextRBACManager.runAsGroup=null --set alpha.oam.enabled=true
 
 helm install crossplane --namespace crossplane-system crossplane-stable/crossplane --version 1.2.1 --set securityContextCrossplane.runAsUser=null --set securityContextCrossplane.runAsGroup=null --set securityContextRBACManager.runAsUser=null --set securityContextRBACManager.runAsGroup=null --set alpha.oam.enabled=true
 
