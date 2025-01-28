@@ -1,7 +1,7 @@
 # 1. Installing Crossplane on OpenShift
 We will install Crossplane control plane system in an OpenShift cluster. This walkthrough will use Red Hat OpenShift on IBM Cloud, but any OpenShift cluster will be equivalent. Additional we will install the IBM Cloud Crossplane provider so that we can provision and lifecycle managed IBM Cloud services using Crossplane.
 
-This walkthrough was tested with Crossplane v1.2 on an OpenShift 4.6 cluster.
+This walkthrough was tested with Crossplane v1.18 on an OpenShift 4.17 cluster.
 
 The latest installation steps for Crossplane are [here](https://crossplane.io/docs/v1.2/getting-started/install-configure.html) and the IBM Cloud provider [here](https://github.com/crossplane-contrib/provider-ibm-cloud).
 
@@ -20,7 +20,12 @@ helm repo update
 Due to the nature of OpenShift's enterprise strength security model when we install Crossplane we need to set various security contexts. By setting to `null` we pass through the user credentials authority of the logged in OpenShift user through to the Crossplane components.
 ```
 # in OpenShift this creates the Service Account 'crossplane' during the chart install
-helm install crossplane --namespace --create-namespace crossplane-system crossplane-stable/crossplane --set securityContextCrossplane.runAsUser=null --set securityContextCrossplane.runAsGroup=null --set securityContextRBACManager.runAsUser=null --set securityContextRBACManager.runAsGroup=null --set alpha.oam.enabled=true
+helm install crossplane --namespace crossplane-system --create-namespace crossplane-stable/crossplane \
+  --set securityContextCrossplane.runAsUser=null \
+  --set securityContextCrossplane.runAsGroup=null \
+  --set securityContextRBACManager.runAsUser=null \
+  --set securityContextRBACManager.runAsGroup=null \
+  --set alpha.oam.enabled=true
 
 # install the Crossplane CLI
 curl -sL https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh | sh
